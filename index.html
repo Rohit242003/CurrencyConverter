@@ -1,0 +1,49 @@
+<html>
+<head>
+	<title>  </title>
+	<style>
+	*{ font-size:40px;font-family:impact;}
+	body {
+ 		 background-image: url('pexels-shonejai-1227511.jpg');
+		}
+</style>
+</head>
+<body>
+	<center>
+	<h1>Currency Converter</h1>
+	<form>
+	&#36<input type="number" step ="any" Placeholder="Enter the Amt &#36" id="usd"/>
+	<br><br>
+	&#8377 <input type="number" step ="any" Placeholder="Enter the Amt &#8377 " id="inr"/>
+	</form>
+	
+	</center>
+	<script>
+		let usd = document.getElementById("usd");
+		let inr = document.getElementById("inr");
+		let USD = 0.0;
+		fetch("https://api.exchangerate-api.com/v4/latest/USD")
+		.then(res => res.json())
+		.then(data => USD =data["rates"]["INR"])
+		.catch(err=> alert("issue "+err));
+		
+		usd.addEventListener("input",function()
+		{
+			let u = parseFloat(usd.value);
+			
+			let i= u*USD;
+			inr.value = i.toFixed(2);
+		})
+		inr.addEventListener("input",function()
+		{
+			
+			let i = parseFloat(inr.value);
+			
+			let u = i/USD;
+			usd.value = u.toFixed(2);
+		})
+			
+		
+	</script>
+</body>
+</html>
